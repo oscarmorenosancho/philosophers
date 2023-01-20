@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_start_threads.c                                 :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:44:38 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/20 16:34:35 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:19:29 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_start_n_thread(t_program_data *data, int n)
+static void	ft_create_n_thread(t_program_data *data, int n)
 {
 	int				thc_ret;
 	pthread_attr_t	attr;
@@ -21,7 +21,7 @@ void	ft_start_n_thread(t_program_data *data, int n)
 		&ft_philo_behavior, data->philo[n]);
 }
 
-void	ft_start_threads(t_program_data *data)
+void	ft_create_threads(t_program_data *data)
 {
 	int	i;
 
@@ -44,4 +44,42 @@ void	ft_start_threads(t_program_data *data)
 	}	
 }
 
+void	ft_join_threads(t_program_data *data)
+{
+	int	i;
+	int	thj_ret;
+	int	retval;
+
+	if (data && data->threads)
+	{
+		i = 0;
+		while (i < data->args.philo_nbr)
+		{
+			if (data->threads[i])
+			{
+				thj_ret = pthread_join(data->threads[i], &retval);
+				if (thj_ret)
+					;
+			}
+			i++;
+		}
+	}
+}
+
+void	ft_destroy_threads(t_program_data *data)
+{
+	int	i;
+
+	if (data && data->threads)
+	{
+		i = 0;
+		while (i < data->args.philo_nbr)
+		{
+			if (data->threads[i])
+				free(data->threads[i]);
+			i++;
+		}
+		free(data->threads);
+	}
+}
 

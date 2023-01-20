@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/01/20 16:46:46 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/01/20 17:09:43 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAMEB := ${addsuffix _bonus, $(NAME)}
 
 SRC_R := philo.c\
 forks.c\
+threads.c\
 ft_init_philo.c\
 ft_philo_behavior.c\
-ft_start_threads.c\
 ft_take_args.c\
 ft_atoi.c\
 ft_strlen.c
