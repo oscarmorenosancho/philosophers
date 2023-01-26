@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/01/26 12:08:06 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/01/26 12:32:10 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ ft_philo_behavior.c\
 ft_take_args.c\
 ft_atoi.c\
 ft_strlen.c\
-ft_time_diff.c
+ft_time_diff.c\
+ft_print_event.c
 
 SRC_PATH := 
 SRC := ${addprefix $(SRC_PATH), $(SRC_R)}

@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/26 11:24:58 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:57:20 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_update_dead(t_philo_info *pi, t_timestamp *ts)
 	dead = (et >= pi->args->time_to_die);
 	if (dead && pi->status != stat_dead)
 	{
+		ft_print_event(pi, ts, "died");
 		pi->status = stat_dead;
 		pi->ch_status_ts = *ts;
 		if (pi->exit_flag)
@@ -41,6 +42,7 @@ void	ft_philo_sleeps(t_philo_info *pi)
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
 		if (et >= pi->args->time_to_sleep)
 		{
+			ft_print_event(pi, &ts, "is thinking");
 			pi->status = stat_thinking;
 			pi->ch_status_ts = ts;
 		}
@@ -57,7 +59,10 @@ void	ft_philo_thinks(t_philo_info *pi)
 	{
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
 		//lock left fork
+		ft_print_event(pi, &ts, "has taken a fork");
 		//lock right fork
+		ft_print_event(pi, &ts, "has taken a fork");
+		ft_print_event(pi, &ts, "is eating");
 		pi->status = stat_eating;
 		pi->ch_status_ts = ts;
 	}
@@ -76,6 +81,8 @@ void	ft_philo_eats(t_philo_info *pi)
 		{
 			//unlock left fork
 			//unlock right fork
+
+			ft_print_event(pi, &ts, "is sleeping");
 			pi->status = stat_sleeping;
 			pi->ch_status_ts = ts;
 		}

@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_time_diff.c                                     :+:      :+:    :+:   */
+/*   ft_print_event.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 12:38:03 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/26 12:40:45 by omoreno-         ###   ########.fr       */
+/*   Created: 2023/01/26 12:32:16 by omoreno-          #+#    #+#             */
+/*   Updated: 2023/01/26 12:49:55 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-time_t	ft_time_diff(t_timestamp *ref, t_timestamp *time)
+void	ft_print_event(t_philo_info *pi, t_timestamp *ts, char *s)
 {
-	time_t	ret;
-	time_t	sec;
-	time_t	usec;
+	t_timestamp	t;
+	time_t		te;
 
-	ret = 0;
-	if (ref && time)
-	{
-		sec = time->tv_sec - ref->tv_sec;
-		if (time->tv_sec >= ref->tv_sec)
-			usec = time->tv_usec - ref->tv_usec;
-		else
-		{
-			usec = 1000000 - ref->tv_usec + time->tv_usec;
-			sec++;
-		}
-		ret = sec * 1000 + usec / 1000;
-	}
-	return (ret);
+	t = *ts;
+	te = 0;
+	printf("%lu %d %s\n", te, pi->id, s);
 }
