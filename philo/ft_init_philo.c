@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:22 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/24 12:23:40 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:44:47 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	ft_init_n_philo(t_program_data *data, int n, const t_timestamp *ts)
 		data->philo[n]->id = n + 1;
 		data->philo[n]->args = &data->args;
 		data->philo[n]->eat_ts = *ts;
+		data->philo[n]->eat_count = 0;
 		data->philo[n]->ch_status_ts = *ts;
 		data->philo[n]->exit_flag = &data->exit_flag;
 		if (n % 2)

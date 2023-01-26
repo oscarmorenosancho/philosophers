@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/26 15:31:08 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:45:17 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_philo_thinks(t_philo_info *pi)
 		ft_print_event(pi, &ts, "is eating");
 		pi->status = stat_eating;
 		pi->ch_status_ts = ts;
+		pi->eat_count++;
 	}
 	return ;
 }
@@ -82,13 +83,20 @@ void	ft_philo_eats(t_philo_info *pi)
 		if (et >= pi->args->time_to_eat)
 		{
 			mu_ret = pthread_mutex_unlock(pi->left_fork_mutex);
-			ft_print_event(pi, &ts, "has freeed a fork");
+			ft_print_event(pi, &ts, "has released a fork");
 			mu_ret = pthread_mutex_unlock(pi->right_fork_mutex);
-			ft_print_event(pi, &ts, "has freeed a fork");
+			ft_print_event(pi, &ts, "has released a fork");
 			ft_print_event(pi, &ts, "is sleeping");
 			pi->status = stat_sleeping;
 			pi->ch_status_ts = ts;
 		}
+	}
+	else
+	{
+		mu_ret = pthread_mutex_unlock(pi->left_fork_mutex);
+		ft_print_event(pi, &ts, "has freeed a fork");
+		mu_ret = pthread_mutex_unlock(pi->right_fork_mutex);
+		ft_print_event(pi, &ts, "has freeed a fork");
 	}
 	return ;
 }
