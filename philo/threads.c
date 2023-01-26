@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:44:38 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/20 17:19:29 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 11:47:36 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_create_threads(t_program_data *data)
 			{
 				data->threads[i] = malloc(sizeof(pthread_t));
 				if (data->threads[i])
-					ft_start_n_thread(data, i);
+					ft_create_n_thread(data, i);
 				i++;
 			}
 		}
@@ -48,7 +48,7 @@ void	ft_join_threads(t_program_data *data)
 {
 	int	i;
 	int	thj_ret;
-	int	retval;
+	int	*retval;
 
 	if (data && data->threads)
 	{
@@ -57,7 +57,7 @@ void	ft_join_threads(t_program_data *data)
 		{
 			if (data->threads[i])
 			{
-				thj_ret = pthread_join(data->threads[i], &retval);
+				thj_ret = pthread_join(*(data->threads[i]), (void **)&retval);
 				if (thj_ret)
 					;
 			}

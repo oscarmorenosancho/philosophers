@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:58:54 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/20 14:59:17 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 11:27:22 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ static int	ft_isspace(char c)
 
 	ret = ((c == ' ') || (c == '\n') || (c == '\t')
 			|| (c == '\v') || (c == '\f') || (c == '\r'));
+	return (ret);
+}
+
+static int	ft_isdigit(char c)
+{
+	int	ret;
+
+	ret = (c >= '0' && c <= '9');
 	return (ret);
 }
 

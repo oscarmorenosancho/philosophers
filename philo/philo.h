@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:05:37 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/24 12:18:48 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 11:26:09 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_program_data
 }	t_program_data;
 
 int		ft_strlen(char *s);
+int		ft_atoi(const char *str);
+time_t	ft_time_diff(t_timestamp *ref, t_timestamp *time);
 void	ft_take_args(t_program_data *data, int argc, char **argv);
 void	ft_init_forks(t_program_data *data);
 void	ft_delete_forks(t_program_data *data);
