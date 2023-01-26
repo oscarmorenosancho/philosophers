@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/26 14:46:25 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:31:08 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ void	ft_philo_thinks(t_philo_info *pi)
 {
 	t_timestamp		ts;
 	time_t			et;
+	int				ml_ret;
 
 	if (!ft_update_dead(pi, &ts))
 	{
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
-		//lock left fork
+		ml_ret = pthread_mutex_lock(pi->left_fork_mutex);
 		ft_print_event(pi, &ts, "has taken a fork");
-		//lock right fork
+		ml_ret = pthread_mutex_lock(pi->right_fork_mutex);
 		ft_print_event(pi, &ts, "has taken a fork");
 		ft_print_event(pi, &ts, "is eating");
 		pi->status = stat_eating;
@@ -73,15 +74,17 @@ void	ft_philo_eats(t_philo_info *pi)
 {
 	t_timestamp		ts;
 	time_t			et;
+	int				mu_ret;
 
 	if (!ft_update_dead(pi, &ts))
 	{
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
 		if (et >= pi->args->time_to_eat)
 		{
-			//unlock left fork
-			//unlock right fork
-
+			mu_ret = pthread_mutex_unlock(pi->left_fork_mutex);
+			ft_print_event(pi, &ts, "has freeed a fork");
+			mu_ret = pthread_mutex_unlock(pi->right_fork_mutex);
+			ft_print_event(pi, &ts, "has freeed a fork");
 			ft_print_event(pi, &ts, "is sleeping");
 			pi->status = stat_sleeping;
 			pi->ch_status_ts = ts;
