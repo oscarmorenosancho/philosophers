@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:44:38 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/26 11:47:36 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:46:55 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static void	ft_create_n_thread(t_program_data *data, int n)
 {
 	int				thc_ret;
 	pthread_attr_t	attr;
+	pthread_attr_t	*pattr;
 
-	thc_ret = pthread_create(data->threads[n], &attr, \
+	(void)attr;
+	pattr = NULL;
+	thc_ret = pthread_create(data->threads[n], pattr, \
 		&ft_philo_behavior, data->philo[n]);
 }
 
@@ -82,4 +85,3 @@ void	ft_destroy_threads(t_program_data *data)
 		free(data->threads);
 	}
 }
-
