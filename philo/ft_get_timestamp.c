@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_event.c                                   :+:      :+:    :+:   */
+/*   ft_get_timestamp.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 12:32:16 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/27 16:37:41 by omoreno-         ###   ########.fr       */
+/*   Created: 2023/01/27 16:21:21 by omoreno-          #+#    #+#             */
+/*   Updated: 2023/01/27 16:26:06 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_print_event(t_philo_info *pi, t_timestamp *ts, char *s)
+void	ft_get_timestamp(t_timestamp *ts)
 {
-	time_t		te;
+	int				gtod_ret;
 
-	te = ft_time_diff(pi->initial_ts, ts);
-	printf("%lu %d %s\n", te, pi->id, s);
+	gtod_ret = gettimeofday(ts, NULL);
 }

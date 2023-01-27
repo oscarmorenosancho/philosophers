@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/26 14:23:17 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:29:25 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int argc, char **argv)
 	{
 		ft_take_args(&data, argc, argv);
 		ft_print_arguments(&data.args);
+		ft_get_timestamp(&data.initial_ts);
 		ft_init_forks(&data);
 		ft_init_philo(&data);
 		ft_create_threads(&data);
