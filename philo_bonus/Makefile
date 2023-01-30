@@ -6,30 +6,47 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/01/30 14:49:19 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/01/30 16:34:41 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := philo
-NAMEB := ${addsuffix _bonus, $(NAME)}
+NAME := philo_bonus
+
+SRC_R := philo_bonus.c\
+ft_take_args_bonus.c\
+ft_atoi_bonus.c\
+ft_strlen_bonus.c\
+ft_time_diff_bonus.c\
+ft_print_event_bonus.c\
+ft_get_timestamp_bonus.c
+
+SRC_PATH := 
+SRC := ${addprefix $(SRC_PATH), $(SRC_R)}
+
+OBJ := $(SRC:.c=.o)
+DEPS := $(SRC:.c=.d)
+CC	:= 	gcc
+CFLAGS := -Wall -Werror -Wextra
+CFD := -MMD
+RM	:= 	rm -f
+HEADER := ${addprefix $(SRC_PATH), philo.h}
+
+%.o : %.c ${HEADER}
+	${CC} ${CFLAGS} ${CFD} -I ${HEADER} -c $< -o $@
 
 all : $(NAME)
-bonus : $(NAMEB)
 
-$(NAME) :
-	make -C philo
-
-$(NAMEB):
-	make -C philo_bonus
+-include $(DEPS)
+$(NAME) : ${OBJ} 
+	${CC} ${CFLAGS} -I ${HEADER} ${OBJ} -o $@
 
 clean :
-	make -C philo clean
-	make -C philo_bonus clean
+	$(RM) $(OBJ)
+	$(RM) $(DEPS)
 
 fclean : clean
-	make -C philo fclean
-	make -C philo_bonus fclean
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY : $(NAME) $(NAMEB) clean fclean re all bonus
+.PHONY : clean fclean re all bonus

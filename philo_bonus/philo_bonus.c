@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/30 16:21:25 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:24:45 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static void	ft_print_usage_help(void)
 {
@@ -37,22 +37,33 @@ static void	ft_print_usage_help(void)
 int	main(int argc, char **argv)
 {
 	t_program_data	data;
+	int				i;
+	pid_t			fork_ret;
 
+	fork_ret = 0;
 	memset(&data, 0, sizeof(t_program_data));
 	if (argc == 5 || argc == 6)
 	{
 		if (ft_take_args(&data, argc, argv))
 		{
 			ft_get_timestamp(&data.initial_ts);
-			ft_init_print_mutex(&data);
-			ft_init_forks(&data);
-			ft_init_philo(&data);
-			ft_create_threads(&data);
-			ft_join_threads(&data);
-			ft_destroy_threads(&data);
-			ft_delete_philo(&data);
-			ft_delete_forks(&data);
-			ft_delete_print_mutex(&data);
+			i = 1;
+			while (i <= data.args.philo_nbr && fork_ret > 0)
+			{
+				fork_ret = fork();
+				i++;
+			}
+			if (fork_ret == 0)
+			{
+				data.philo.id = i;
+			}
+			//ft_init_print_mutex(&data);
+			//ft_init_forks(&data);
+			//ft_init_philo(&data);
+
+			//ft_delete_philo(&data);
+			//ft_delete_forks(&data);
+			//ft_delete_print_mutex(&data);
 		}
 		else
 			ft_print_usage_help();
