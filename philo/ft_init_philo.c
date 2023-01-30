@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:22 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/27 16:32:57 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:02:51 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	ft_init_n_philo(t_program_data *data, int n, const t_timestamp *ts)
 		data->philo[n]->initial_ts = &data->initial_ts;
 		data->philo[n]->eat_ts = *ts;
 		data->philo[n]->eat_count = 0;
+		data->philo[n]->done = 0;
+		data->philo[n]->forks_taken = 0;
 		data->philo[n]->ch_status_ts = *ts;
 		data->philo[n]->exit_flag = &data->exit_flag;
 		if (n % 2)
@@ -32,6 +34,7 @@ static void	ft_init_n_philo(t_program_data *data, int n, const t_timestamp *ts)
 		data->philo[n]->left_fork_mutex = data->forks[n];
 		data->philo[n]->right_fork_mutex = \
 			data->forks[(n + 1) % data->args.philo_nbr];
+		data->philo[n]->print_mutex = data->print_mutex;
 	}
 }
 

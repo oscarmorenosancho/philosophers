@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/27 16:29:25 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:22:24 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ static void	ft_print_usage_help(void)
 	write(2, err_msg, ft_strlen(err_msg));
 }
 
-static void	ft_print_arguments(t_philo_args *args)
-{
-	printf("Philosophers number: %d\n", args->philo_nbr);
-	printf("Time to die: %dms\n", args->time_to_die);
-	printf("Time to eat: %dms\n", args->time_to_eat);
-	printf("Time to sleep: %dms\n", args->time_to_sleep);
-	printf("Times must eat: %d\n", \
-		args->number_of_times_each_philosopher_must_eat);
-}
-
 int	main(int argc, char **argv)
 {
 	t_program_data	data;
@@ -46,8 +36,8 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		ft_take_args(&data, argc, argv);
-		ft_print_arguments(&data.args);
 		ft_get_timestamp(&data.initial_ts);
+		ft_init_print_mutex(&data);
 		ft_init_forks(&data);
 		ft_init_philo(&data);
 		ft_create_threads(&data);
@@ -55,6 +45,7 @@ int	main(int argc, char **argv)
 		ft_destroy_threads(&data);
 		ft_delete_philo(&data);
 		ft_delete_forks(&data);
+		ft_delete_print_mutex(&data);
 	}
 	else
 		ft_print_usage_help();

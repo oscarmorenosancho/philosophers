@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/01/27 16:27:42 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/01/30 12:59:07 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME := philo
 
 SRC_R := philo.c\
 forks.c\
+print_mutex.c\
 threads.c\
 ft_init_philo.c\
 ft_philo_behavior.c\
