@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:39:53 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/30 16:23:03 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:07:21 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_take_args(t_program_data *data, int argc, char **argv)
 			data->args.times_must_eat \
 				= ft_atoi(argv[5]);
 	}
-	return (data->args.philo_nbr > 0 && data->args.time_to_die > 0\
-		&& data->args.time_to_eat > 0 && data->args.time_to_sleep > 0\
+	return (data->args.philo_nbr > 0 && data->args.time_to_die > 0 \
+		&& data->args.time_to_eat > 0 && data->args.time_to_sleep > 0 \
 		&& data->args.times_must_eat >= 0);
 }

@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/01/30 16:34:41 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/01/31 14:28:05 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,10 @@ ft_atoi_bonus.c\
 ft_strlen_bonus.c\
 ft_time_diff_bonus.c\
 ft_print_event_bonus.c\
-ft_get_timestamp_bonus.c
+ft_get_timestamp_bonus.c\
+ft_update_dead_bonus.c\
+ft_philo_behavior_bonus.c\
+sem_bonus.c
 
 SRC_PATH := 
 SRC := ${addprefix $(SRC_PATH), $(SRC_R)}

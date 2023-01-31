@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/30 16:21:25 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:12:32 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_print_usage_help(void)
 	write(2, err_msg, ft_strlen(err_msg));
 	err_msg = "number_of_times_each_philosopher_must_eat can be 0\n";
 	write(2, err_msg, ft_strlen(err_msg));
-	err_msg = "what will mean that the program only ends when there's one died\n";
+	err_msg = "what will mean that the program only ends when one died\n";
 	write(2, err_msg, ft_strlen(err_msg));
 }
 
