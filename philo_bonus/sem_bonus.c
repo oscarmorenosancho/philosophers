@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:14:17 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/31 13:22:50 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:21:17 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_create_forks_sem(t_program_data *data)
 	char	*err_msg;
 
 	data->sem_forks = sem_open("/philo_forks_sem", O_CREAT, \
-		S_IRWXU, data->args.philo_nbr);
+		S_IRWXU | S_IRWXG | S_IRWXO, data->args.philo_nbr);
 	if (data->sem_forks == SEM_FAILED)
 	{
 		data->sem_forks = NULL;
@@ -61,7 +61,7 @@ void	ft_create_print_sem(t_program_data *data)
 	char	*err_msg;
 
 	data->sem_print = sem_open("/philo_print_sem", O_CREAT, \
-		S_IRWXU, 1);
+		S_IRWXU | S_IRWXG | S_IRWXO, 1);
 	if (data->sem_print == SEM_FAILED)
 	{
 		data->sem_print = NULL;

@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:11:38 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/31 14:25:19 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:46:55 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_update_dead(t_program_data *data, t_timestamp *ts)
 		ft_print_event(data, ts, "died");
 		pi->status = stat_dead;
 		pi->ch_status_ts = *ts;
-		if (pi->exit_flag)
-			*(pi->exit_flag) = 1;
+		if (data->exit_flag)
+			(data->exit_flag) = 1;
 	}
 	return (dead);
 }
