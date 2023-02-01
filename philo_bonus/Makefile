@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/01/31 14:28:05 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/02/01 13:01:11 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ CC	:= 	gcc
 CFLAGS := -Wall -Werror -Wextra
 CFD := -MMD
 RM	:= 	rm -f
-HEADER := ${addprefix $(SRC_PATH), philo.h}
+HEADER := ${addprefix $(SRC_PATH), philo_bonus.h}
 
 %.o : %.c ${HEADER}
 	${CC} ${CFLAGS} ${CFD} -I ${HEADER} -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:05:37 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/31 17:33:38 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:03:11 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_program_data
 	t_philo_args	args;
 	sem_t			*sem_forks;
 	sem_t			*sem_print;
-	t_philo_info	philo;
+	t_philo_info	*philos;
 	t_timestamp		initial_ts;
 }	t_program_data;
 
@@ -70,8 +70,9 @@ void	ft_create_forks_sem(t_program_data *data);
 void	ft_destroy_forks_sem(t_program_data *data);
 void	ft_create_print_sem(t_program_data *data);
 void	ft_destroy_print_sem(t_program_data *data);
-int		ft_update_dead(t_program_data *data, t_timestamp *ts);
-void	ft_philo_behavior(t_program_data *data);
-void	ft_print_event(t_program_data *data, t_timestamp *ts, char *s);
+int		ft_update_dead(t_program_data *data, t_timestamp *ts, int philo_id);
+void	ft_philo_behavior(t_program_data *data, int philo_id);
+void	ft_print_event(t_program_data *data, \
+			t_timestamp *ts, char *s, int philo_id);
 
 #endif

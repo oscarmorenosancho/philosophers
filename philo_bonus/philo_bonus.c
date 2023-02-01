@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/31 17:56:45 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:01:49 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ static void	ft_print_usage_help(void)
 static void	ft_create_philos(t_program_data *data, pid_t *fork_ret)
 {
 	int				i;
+	t_philo_info	*pi;
 
+	data->philos = malloc(data->args.philo_nbr * sizeof(t_philo_info));
+	if (! data->philos)
+		return ;
 	i = 0;
 	while (i < data->args.philo_nbr && (*fork_ret > 0 || i == 0))
 	{
@@ -46,23 +50,29 @@ static void	ft_create_philos(t_program_data *data, pid_t *fork_ret)
 	}
 	if (*fork_ret == 0)
 	{
-		printf("fork return %d at iter %d\n", *fork_ret, i);
 		data->exit_flag = 0;
-		data->philo.id = i;
-		data->philo.done = 0;
-		data->philo.ch_status_ts = data->initial_ts;
-		data->philo.eat_ts = data->initial_ts;
+		pi = &data->philos[i - 1];
+		pi->id = i;
+		pi->done = 0;
+		pi->ch_status_ts = data->initial_ts;
+		pi->eat_ts = data->initial_ts;
 		if (i % 2)
-			data->philo.status = stat_sleeping;
+			pi->status = stat_sleeping;
 		else
-			data->philo.status = stat_thinking;
-		data->philo.eat_count = 0;
-		data->philo.forks_taken = 0;
-		ft_print_event(data, &data->initial_ts, "init philo\n");
-		ft_philo_behavior(data);
+			pi->status = stat_thinking;
+		pi->eat_count = 0;
+		pi->forks_taken = 0;
+		ft_philo_behavior(data, i);
 	}
-	else if (*fork_ret > 0)
-		printf("fork return %d at iter %d\n", *fork_ret, i);
+}
+
+static void	ft_destroy_philos(t_program_data *data)
+{
+	if (data->philos)
+	{
+		free (data->philos);
+		data->philos = NULL;
+	}
 }
 
 static void	ft_wait_for_philos(t_program_data *data, pid_t *fork_ret)
@@ -95,6 +105,7 @@ int	main(int argc, char **argv)
 			if (fork_ret == 0)
 				return (0);
 			ft_wait_for_philos(&data, &fork_ret);
+			ft_destroy_philos(&data);
 			ft_destroy_forks_sem(&data);
 			ft_destroy_print_sem(&data);
 		}
