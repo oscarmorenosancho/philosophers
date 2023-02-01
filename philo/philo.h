@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:05:37 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/30 16:15:42 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:58:17 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ void	*ft_philo_behavior(void *arg);
 void	ft_create_threads(t_program_data *data);
 void	ft_join_threads(t_program_data *data);
 void	ft_destroy_threads(t_program_data *data);
-void	ft_print_event(t_philo_info *pi, t_timestamp *ts, char *s);
+void	ft_print_event(t_philo_info *pi, char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:58:12 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 15:58:33 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:51:49 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,23 @@ void	ft_philo_thinks(t_program_data *data, int philo_id)
 	if (!ft_update_dead(data, &ts, philo_id))
 	{
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
-		if (! pi->forks_taken)
+		if (pi->forks_taken == 0)
 		{
 			sw_ret = sem_wait(data->sem_forks);
 			ft_print_event(data, "has taken a fork", philo_id);
-			if (data->args.philo_nbr > 1)
-			{
-				sem_wait(data->sem_forks);
-				ft_get_timestamp(&ts);
-				ft_print_event(data, "has taken a fork", philo_id);
-				ft_print_event(data, "is eating", philo_id);
-				pi->status = stat_eating;
-				pi->ch_status_ts = ts;
-				pi->eat_ts = ts;
-				pi->eat_count++;
-			}
 			pi->forks_taken = 1;
+		}
+		if (!ft_update_dead(data, &ts, philo_id) \
+				&& pi->forks_taken == 1 && data->args.philo_nbr > 1)
+		{
+			sem_wait(data->sem_forks);
+			pi->forks_taken = 2;
+			ft_print_event(data, "has taken a fork", philo_id);
+			ft_print_event(data, "is eating", philo_id);
+			pi->status = stat_eating;
+			pi->ch_status_ts = ts;
+			pi->eat_ts = ts;
+			pi->eat_count++;
 		}
 	}
 	return ;
@@ -69,11 +70,14 @@ static void	ft_release_forks(t_program_data *data, int philo_id)
 	t_philo_info	*pi;
 
 	pi = &data->philos[philo_id - 1];
-	if (pi->forks_taken)
+	if (pi->forks_taken == 2)
 	{
 		sem_post(data->sem_forks);
-		if (data->args.philo_nbr > 1)
-			sem_post(data->sem_forks);
+		pi->forks_taken = 1;
+	}
+	if (pi->forks_taken == 1 && data->args.philo_nbr > 1)
+	{
+		sem_post(data->sem_forks);
 		pi->forks_taken = 0;
 	}
 }
