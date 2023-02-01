@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/30 13:12:35 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:29:29 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_philo_thinks(t_philo_info *pi)
 			if (pi->left_fork_mutex != pi->right_fork_mutex)
 			{
 				ml_ret = pthread_mutex_lock(pi->right_fork_mutex);
+				ft_get_timestamp(&ts);
 				ft_print_event(pi, &ts, "has taken a fork");
 				ft_print_event(pi, &ts, "is eating");
 				pi->status = stat_eating;

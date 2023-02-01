@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:05:37 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 13:03:11 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:53:55 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@
 # include <semaphore.h>
 # include <fcntl.h> 
 # include <sys/stat.h>
+# include <signal.h>
 
 typedef enum e_philo_status{
 	stat_dead,
 	stat_thinking,
 	stat_eating,
-	stat_sleeping
+	stat_sleeping,
+	stat_done
 }	t_philo_status;
 
 typedef struct timeval	t_timestamp;
@@ -43,9 +45,9 @@ typedef struct s_philo_args
 typedef struct s_philo_info
 {
 	int				id;
+	pid_t			pid;
 	t_philo_status	status;
 	int				eat_count;
-	int				done;
 	int				forks_taken;
 	t_timestamp		eat_ts;
 	t_timestamp		ch_status_ts;
@@ -53,7 +55,6 @@ typedef struct s_philo_info
 
 typedef struct s_program_data
 {	
-	int				exit_flag;
 	t_philo_args	args;
 	sem_t			*sem_forks;
 	sem_t			*sem_print;
@@ -72,7 +73,6 @@ void	ft_create_print_sem(t_program_data *data);
 void	ft_destroy_print_sem(t_program_data *data);
 int		ft_update_dead(t_program_data *data, t_timestamp *ts, int philo_id);
 void	ft_philo_behavior(t_program_data *data, int philo_id);
-void	ft_print_event(t_program_data *data, \
-			t_timestamp *ts, char *s, int philo_id);
+void	ft_print_event(t_program_data *data, char *s, int philo_id);
 
 #endif

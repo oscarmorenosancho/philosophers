@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 13:01:49 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:56:40 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ static void	ft_create_philos(t_program_data *data, pid_t *fork_ret)
 	while (i < data->args.philo_nbr && (*fork_ret > 0 || i == 0))
 	{
 		*fork_ret = fork();
+		if (*fork_ret > 0)
+			data->philos[i].pid = *fork_ret;
 		i++;
 	}
 	if (*fork_ret == 0)
 	{
-		data->exit_flag = 0;
 		pi = &data->philos[i - 1];
 		pi->id = i;
-		pi->done = 0;
 		pi->ch_status_ts = data->initial_ts;
 		pi->eat_ts = data->initial_ts;
 		if (i % 2)
@@ -79,11 +79,18 @@ static void	ft_wait_for_philos(t_program_data *data, pid_t *fork_ret)
 {
 	pid_t			wp_ret;
 	int				wp_status;
+	int				i;
 
 	(void)data;
 	if (*fork_ret != 0)
 	{
 		wp_ret = waitpid(0, &wp_status, WCONTINUED);
+		i = 0;
+		while (i < data->args.philo_nbr)
+		{
+			kill(data->philos[i].pid, SIGKILL);
+			i++;
+		}
 	}
 }
 

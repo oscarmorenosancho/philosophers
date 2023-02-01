@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:58:12 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 13:05:58 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:58:33 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_philo_sleeps(t_program_data *data, int philo_id)
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
 		if (et >= data->args.time_to_sleep)
 		{
-			ft_print_event(data, &ts, "is thinking", philo_id);
+			ft_print_event(data, "is thinking", philo_id);
 			pi->status = stat_thinking;
 			pi->ch_status_ts = ts;
 		}
@@ -46,15 +46,16 @@ void	ft_philo_thinks(t_program_data *data, int philo_id)
 		if (! pi->forks_taken)
 		{
 			sw_ret = sem_wait(data->sem_forks);
-			ft_print_event(data, &ts, "has taken a fork", philo_id);
+			ft_print_event(data, "has taken a fork", philo_id);
 			if (data->args.philo_nbr > 1)
 			{
 				sem_wait(data->sem_forks);
 				ft_get_timestamp(&ts);
-				ft_print_event(data, &ts, "has taken a fork", philo_id);
-				ft_print_event(data, &ts, "is eating", philo_id);
+				ft_print_event(data, "has taken a fork", philo_id);
+				ft_print_event(data, "is eating", philo_id);
 				pi->status = stat_eating;
 				pi->ch_status_ts = ts;
+				pi->eat_ts = ts;
 				pi->eat_count++;
 			}
 			pi->forks_taken = 1;
@@ -90,13 +91,15 @@ void	ft_philo_eats(t_program_data *data, int philo_id)
 		if (et >= data->args.time_to_eat)
 		{
 			ft_release_forks(data, philo_id);
-			ft_print_event(data, &ts, "is sleeping", philo_id);
+			ft_print_event(data, "is sleeping", philo_id);
 			pi->status = stat_sleeping;
 			pi->ch_status_ts = ts;
 			pi->eat_ts = ts;
 			if (data->args.times_must_eat > 0 \
 				&& pi->eat_count >= data->args.times_must_eat)
-				pi->done = 1;
+			{
+				pi->status = stat_done;
+			}
 		}
 	}
 	else
@@ -111,7 +114,7 @@ void	ft_philo_behavior(t_program_data *data, int philo_id)
 
 	ret = NULL;
 	pi = &data->philos[philo_id - 1];
-	while (pi->status != stat_dead && !(data->exit_flag) && !pi->done)
+	while (pi->status != stat_dead)
 	{
 		if (pi->status == stat_sleeping)
 			ft_philo_sleeps(data, philo_id);
@@ -121,7 +124,7 @@ void	ft_philo_behavior(t_program_data *data, int philo_id)
 			ft_philo_eats(data, philo_id);
 		else if (pi->status == stat_dead)
 			return ;
-		else
+		else if (pi->status != stat_done)
 			pi->status = stat_dead;
 		usleep(10);
 	}
