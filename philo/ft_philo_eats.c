@@ -6,13 +6,13 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:26:30 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/02 15:50:06 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:28:31 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	ft_release_forks(t_philo_info *pi)
+void	ft_release_forks(t_philo_info *pi)
 {
 	int				mu_ret;
 
@@ -57,6 +57,8 @@ void	ft_philo_eats(t_philo_info *pi)
 				&& pi->eat_count >= pi->args->times_must_eat)
 				ft_update_done_status(pi);
 		}
+		else if (pi->exit_flag && !(*pi->exit_flag))
+			ft_release_forks(pi);
 	}
 	else
 		ft_release_forks(pi);

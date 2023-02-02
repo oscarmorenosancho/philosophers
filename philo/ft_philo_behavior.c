@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/02 15:28:29 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:10:01 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	*ft_philo_behavior(void *arg)
 {
-	void			*ret;
 	t_philo_info	*pi;
+	t_timestamp		ts;
 
 	pi = arg;
-	ret = NULL;
 	while (pi->status != stat_dead && pi->exit_flag \
 			&& !*(pi->exit_flag) && !pi->done)
 	{
@@ -29,10 +28,14 @@ void	*ft_philo_behavior(void *arg)
 		else if (pi->status == stat_eating)
 			ft_philo_eats(pi);
 		else if (pi->status == stat_dead)
-			return (ret);
+			return (NULL);
 		else
 			pi->status = stat_dead;
 		usleep(10);
 	}
-	return (ret);
+	while (pi->exit_flag && !*(pi->exit_flag) \
+			&& pi->done_cntdwn && *pi->done_cntdwn > 0 \
+			&& !ft_update_dead(pi, &ts))
+		usleep(10);
+	return (NULL);
 }
