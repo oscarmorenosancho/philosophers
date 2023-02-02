@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:05:37 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 17:58:17 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:25:36 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo_info
 	t_philo_status	status;
 	int				eat_count;
 	int				done;
+	int				*done_cntdwn;
 	int				forks_taken;
 	t_timestamp		eat_ts;
 	t_timestamp		ch_status_ts;
@@ -53,15 +54,18 @@ typedef struct s_philo_info
 	t_philo_args	*args;
 	pthread_mutex_t	*left_fork_mutex;
 	pthread_mutex_t	*right_fork_mutex;
+	pthread_mutex_t	*done_cntdwn_mutex;
 	pthread_mutex_t	*print_mutex;
 }	t_philo_info;
 
 typedef struct s_program_data
 {	
 	int				exit_flag;
+	int				done_cntdwn;
 	t_philo_args	args;
 	pthread_t		**threads;
 	pthread_mutex_t	**forks;
+	pthread_mutex_t	*done_cntdwn_mutex;
 	pthread_mutex_t	*print_mutex;
 	t_philo_info	**philo;
 	t_timestamp		initial_ts;
@@ -74,11 +78,16 @@ time_t	ft_time_diff(t_timestamp *ref, t_timestamp *time);
 int		ft_take_args(t_program_data *data, int argc, char **argv);
 void	ft_init_print_mutex(t_program_data *data);
 void	ft_delete_print_mutex(t_program_data *data);
+void	ft_init_done_cntdwn_mutex(t_program_data *data);
+void	ft_delete_done_cntdwn_mutex(t_program_data *data);
 void	ft_init_forks(t_program_data *data);
 void	ft_delete_forks(t_program_data *data);
 void	ft_init_philo(t_program_data *data);
 void	ft_delete_philo(t_program_data *data);
 int		ft_update_dead(t_philo_info *pi, t_timestamp *ts);
+void	ft_philo_sleeps(t_philo_info *pi);
+void	ft_philo_thinks(t_philo_info *pi);
+void	ft_philo_eats(t_philo_info *pi);
 void	*ft_philo_behavior(void *arg);
 void	ft_create_threads(t_program_data *data);
 void	ft_join_threads(t_program_data *data);

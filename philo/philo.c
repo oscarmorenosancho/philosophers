@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/01/31 12:12:32 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:16:32 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@ static void	ft_print_usage_help(void)
 	write(2, err_msg, ft_strlen(err_msg));
 }
 
+static void	ft_wait_for_ending(t_program_data *data)
+{
+	while (!data->exit_flag && data->done_cntdwn > 0)
+		usleep(10);
+	usleep(50);
+}
+
+static void	ft_deploy(t_program_data *data)
+{
+	ft_get_timestamp(&data->initial_ts);
+	ft_init_print_mutex(data);
+	ft_init_done_cntdwn_mutex(data);
+	ft_init_forks(data);
+	ft_init_philo(data);
+	ft_create_threads(data);
+	ft_wait_for_ending(data);
+	ft_destroy_threads(data);
+	ft_delete_philo(data);
+	ft_delete_forks(data);
+	ft_delete_done_cntdwn_mutex(data);
+	ft_delete_print_mutex(data);
+}
+
 int	main(int argc, char **argv)
 {
 	t_program_data	data;
@@ -42,18 +65,7 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		if (ft_take_args(&data, argc, argv))
-		{
-			ft_get_timestamp(&data.initial_ts);
-			ft_init_print_mutex(&data);
-			ft_init_forks(&data);
-			ft_init_philo(&data);
-			ft_create_threads(&data);
-			ft_join_threads(&data);
-			ft_destroy_threads(&data);
-			ft_delete_philo(&data);
-			ft_delete_forks(&data);
-			ft_delete_print_mutex(&data);
-		}
+			ft_deploy(&data);
 		else
 			ft_print_usage_help();
 	}

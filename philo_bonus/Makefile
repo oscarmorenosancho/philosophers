@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/02/01 13:01:11 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/02/02 13:53:42 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ OBJ := $(SRC:.c=.o)
 DEPS := $(SRC:.c=.d)
 CC	:= 	gcc
 CFLAGS := -Wall -Werror -Wextra
+LFLAGS := -pthread
 CFD := -MMD
 RM	:= 	rm -f
 HEADER := ${addprefix $(SRC_PATH), philo_bonus.h}
@@ -41,7 +42,7 @@ all : $(NAME)
 
 -include $(DEPS)
 $(NAME) : ${OBJ} 
-	${CC} ${CFLAGS} -I ${HEADER} ${OBJ} -o $@
+	${CC} ${CFLAGS} ${LFLAGS} -I ${HEADER} ${OBJ} -o $@
 
 clean :
 	$(RM) $(OBJ)

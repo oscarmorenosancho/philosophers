@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/01/30 12:59:07 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/02/02 15:29:31 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,12 @@ NAME := philo
 SRC_R := philo.c\
 forks.c\
 print_mutex.c\
+done_cntdwn_mutex.c\
 threads.c\
 ft_init_philo.c\
+ft_philo_sleeps.c\
+ft_philo_thinks.c\
+ft_philo_eats.c\
 ft_philo_behavior.c\
 ft_take_args.c\
 ft_atoi.c\
@@ -33,6 +37,7 @@ OBJ := $(SRC:.c=.o)
 DEPS := $(SRC:.c=.d)
 CC	:= 	gcc
 CFLAGS := -Wall -Werror -Wextra
+LFLAGS := -pthread
 CFD := -MMD
 RM	:= 	rm -f
 HEADER := ${addprefix $(SRC_PATH), philo.h}
@@ -44,7 +49,7 @@ all : $(NAME)
 
 -include $(DEPS)
 $(NAME) : ${OBJ} 
-	${CC} ${CFLAGS} -I ${HEADER} ${OBJ} -o $@
+	${CC} ${CFLAGS} ${LFLAGS} -I ${HEADER} ${OBJ} -o $@
 
 clean :
 	$(RM) $(OBJ)
