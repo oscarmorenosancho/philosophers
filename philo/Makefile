@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/02/02 15:29:31 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/02/03 12:56:10 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ forks.c\
 print_mutex.c\
 done_cntdwn_mutex.c\
 threads.c\
+ft_swap.c\
 ft_init_philo.c\
 ft_philo_sleeps.c\
 ft_philo_thinks.c\

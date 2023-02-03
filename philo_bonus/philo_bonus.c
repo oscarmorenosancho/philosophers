@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 15:56:40 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:36:56 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ static void	ft_create_philos(t_program_data *data, pid_t *fork_ret)
 		pi->id = i;
 		pi->ch_status_ts = data->initial_ts;
 		pi->eat_ts = data->initial_ts;
-		if (i % 2)
-			pi->status = stat_sleeping;
-		else
-			pi->status = stat_thinking;
+		pi->status = stat_sleeping;
 		pi->eat_count = 0;
 		pi->forks_taken = 0;
 		ft_philo_behavior(data, i);
@@ -94,6 +91,22 @@ static void	ft_wait_for_philos(t_program_data *data, pid_t *fork_ret)
 	}
 }
 
+static void	ft_deploy(t_program_data *data)
+{
+	pid_t	fork_ret;
+
+	ft_get_timestamp(&data->initial_ts);
+	ft_create_print_sem(data);
+	ft_create_forks_sem(data);
+	ft_create_philos(data, &fork_ret);
+	if (fork_ret == 0)
+		return (0);
+	ft_wait_for_philos(data, &fork_ret);
+	ft_destroy_philos(data);
+	ft_destroy_forks_sem(data);
+	ft_destroy_print_sem(data);
+}
+
 int	main(int argc, char **argv)
 {
 	t_program_data	data;
@@ -104,18 +117,7 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		if (ft_take_args(&data, argc, argv))
-		{
-			ft_get_timestamp(&data.initial_ts);
-			ft_create_print_sem(&data);
-			ft_create_forks_sem(&data);
-			ft_create_philos(&data, &fork_ret);
-			if (fork_ret == 0)
-				return (0);
-			ft_wait_for_philos(&data, &fork_ret);
-			ft_destroy_philos(&data);
-			ft_destroy_forks_sem(&data);
-			ft_destroy_print_sem(&data);
-		}
+			ft_deploy(&data);
 		else
 			ft_print_usage_help();
 	}
