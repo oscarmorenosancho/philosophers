@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:38:13 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/03 12:08:32 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:35:20 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	ft_wait_for_ending(t_program_data *data)
 {
 	while (!data->exit_flag && data->done_cntdwn > 0)
 		usleep(10);
+	ft_join_threads(data);
 	usleep(500);
 }
 
