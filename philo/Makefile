@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/02/03 12:56:10 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/02/15 18:21:00 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,12 @@ ft_philo_sleeps.c\
 ft_philo_thinks.c\
 ft_philo_eats.c\
 ft_philo_behavior.c\
+ft_check_n_get_arg.c\
 ft_take_args.c\
 ft_atoi.c\
+ft_itoa.c\
 ft_strlen.c\
+ft_strncmp.c\
 ft_time_diff.c\
 ft_print_event.c\
 ft_update_dead.c\
