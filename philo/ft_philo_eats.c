@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:26:30 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/13 15:23:59 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:09:13 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_philo_eats(t_philo_info *pi)
 	t_timestamp		ts;
 	time_t			et;
 
-	if (!ft_update_dead(pi, &ts))
+	if (!ft_update_dead(pi, &ts) && pi->exit_flag && !*(pi->exit_flag))
 	{
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
 		if (et >= pi->args->time_to_eat)

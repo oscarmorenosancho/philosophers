@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 12:32:16 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 17:57:34 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:23:06 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	ft_print_event(t_philo_info *pi, char *s)
 	ml_ret = pthread_mutex_lock(pi->print_mutex);
 	ft_get_timestamp(&ts);
 	te = ft_time_diff(pi->initial_ts, &ts);
-	printf("%lu %d %s\n", te, pi->id, s);
+	printf("%lu %d %s at iter %d\n", te, pi->id, s, pi->eat_count);
 	mu_ret = pthread_mutex_unlock(pi->print_mutex);
 }
