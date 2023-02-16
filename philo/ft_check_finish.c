@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_event.c                                   :+:      :+:    :+:   */
+/*   ft_check_finish.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 12:32:16 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/16 14:01:20 by omoreno-         ###   ########.fr       */
+/*   Created: 2023/02/16 13:39:59 by omoreno-          #+#    #+#             */
+/*   Updated: 2023/02/16 13:48:23 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_print_event(t_philo_info *pi, char *s)
+int	ft_check_not_finish(t_philo_info *pi)
 {
-	t_timestamp	ts;
-	time_t		te;
-	int			ml_ret;
-	int			mu_ret;
-
-	if (ft_check_not_finish(pi))
-	{
-		ml_ret = pthread_mutex_lock(pi->print_mutex);
-		ft_get_timestamp(&ts);
-		te = ft_time_diff(pi->initial_ts, &ts);
-		printf("%lu %d %s at iter %d\n", te, pi->id, s, pi->eat_count);
-		mu_ret = pthread_mutex_unlock(pi->print_mutex);
-	}
+	return (pi && pi->exit_flag && !*(pi->exit_flag) && \
+				pi->done_cntdwn && *pi->done_cntdwn > 0);
 }

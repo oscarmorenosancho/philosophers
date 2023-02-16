@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:26:33 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/15 12:23:23 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:57:08 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	ft_philo_thinks(t_philo_info *pi)
 	t_timestamp		ts;
 	time_t			et;
 
-	if (!ft_update_dead(pi, &ts) && pi->exit_flag && !*(pi->exit_flag))
+	if (!ft_update_dead(pi, &ts) && ft_check_not_finish(pi))
 	{
 		et = ft_time_diff(&pi->ch_status_ts, &ts);
-		if (pi->forks_taken == 0 && pi->exit_flag && !*(pi->exit_flag))
+		if (pi->forks_taken == 0 && ft_check_not_finish(pi))
 			ft_philo_thinks_with_no_fork(pi);
 		if (!ft_update_dead(pi, &ts) && \
 				pi->left_fork_mutex != pi->right_fork_mutex \
-				&& pi->forks_taken == 1 && pi->exit_flag && !*(pi->exit_flag))
+				&& pi->forks_taken == 1 && ft_check_not_finish(pi))
 			ft_philo_thinks_with_one_fork(pi);
 	}
 	if (pi->exit_flag && *(pi->exit_flag))
