@@ -6,15 +6,18 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/02/02 13:53:42 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/02/16 13:19:28 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := philo_bonus
 
-SRC_R := philo_bonus.c\
-ft_take_args_bonus.c\
+SRC := philo_bonus.c\
 ft_atoi_bonus.c\
+ft_itoa_bonus.c\
+ft_strncmp_bonus.c\
+ft_check_n_get_arg_bonus.c\
+ft_take_args_bonus.c\
 ft_strlen_bonus.c\
 ft_time_diff_bonus.c\
 ft_print_event_bonus.c\
@@ -23,9 +26,6 @@ ft_update_dead_bonus.c\
 ft_philo_behavior_bonus.c\
 sem_bonus.c
 
-SRC_PATH := 
-SRC := ${addprefix $(SRC_PATH), $(SRC_R)}
-
 OBJ := $(SRC:.c=.o)
 DEPS := $(SRC:.c=.d)
 CC	:= 	gcc
@@ -33,7 +33,7 @@ CFLAGS := -Wall -Werror -Wextra
 LFLAGS := -pthread
 CFD := -MMD
 RM	:= 	rm -f
-HEADER := ${addprefix $(SRC_PATH), philo_bonus.h}
+HEADER := philo_bonus.h
 
 %.o : %.c ${HEADER}
 	${CC} ${CFLAGS} ${CFD} -I ${HEADER} -c $< -o $@

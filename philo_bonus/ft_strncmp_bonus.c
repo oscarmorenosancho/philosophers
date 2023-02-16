@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_n_get_arg.c                               :+:      :+:    :+:   */
+/*   ft_strncmp_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 14:35:51 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/16 11:40:00 by omoreno-         ###   ########.fr       */
+/*   Created: 2022/09/15 18:38:23 by omoreno-          #+#    #+#             */
+/*   Updated: 2023/02/16 13:18:23 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	ft_check_n_get_argument(const char *s, int *nbr)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*clone;
-	int		res;
+	size_t	i;
 
-	if (! s || ! s[0])
+	if (n == 0)
 		return (0);
-	if (s[0] == '+')
-		s++;
-	*nbr = ft_atoi(s);
-	clone = ft_itoa(*nbr);
-	res = ! ft_strncmp(s, clone, 20);
-	free (clone);
-	return (res);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+		i++;
+	return (((unsigned char) s1[i]) - ((unsigned char) s2[i]));
 }

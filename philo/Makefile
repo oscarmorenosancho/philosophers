@@ -6,13 +6,13 @@
 #    By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 16:36:01 by omoreno-          #+#    #+#              #
-#    Updated: 2023/02/15 18:21:00 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/02/16 12:06:06 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := philo
 
-SRC_R := philo.c\
+SRC := philo.c\
 forks.c\
 print_mutex.c\
 done_cntdwn_mutex.c\
@@ -34,9 +34,6 @@ ft_print_event.c\
 ft_update_dead.c\
 ft_get_timestamp.c
 
-SRC_PATH := 
-SRC := ${addprefix $(SRC_PATH), $(SRC_R)}
-
 OBJ := $(SRC:.c=.o)
 DEPS := $(SRC:.c=.d)
 CC	:= 	gcc
@@ -44,7 +41,7 @@ CFLAGS := -Wall -Werror -Wextra
 LFLAGS := -pthread
 CFD := -MMD
 RM	:= 	rm -f
-HEADER := ${addprefix $(SRC_PATH), philo.h}
+HEADER := philo.h
 
 %.o : %.c ${HEADER}
 	${CC} ${CFLAGS} ${CFD} -I ${HEADER} -c $< -o $@

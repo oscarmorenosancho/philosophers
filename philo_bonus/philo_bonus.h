@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:05:37 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/01 15:53:55 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:20:02 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ typedef struct s_program_data
 
 int		ft_strlen(char *s);
 int		ft_atoi(const char *str);
+char	*ft_itoa(int nbr);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_check_n_get_argument(const char *s, int *nbr);
 void	ft_get_timestamp(t_timestamp *ts);
 time_t	ft_time_diff(t_timestamp *ref, t_timestamp *time);
 int		ft_take_args(t_program_data *data, int argc, char **argv);
