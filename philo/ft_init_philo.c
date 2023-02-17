@@ -6,16 +6,20 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:47:22 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/03 13:01:30 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:57:00 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	ft_swap_if_necessary(pthread_mutex_t **a, pthread_mutex_t **b)
+static void	ft_swap_if_necessary(pthread_mutex_t **a, pthread_mutex_t **b,
+				int **ia, int **ib)
 {
 	if (a && b && *a > *b)
+	{
 		ft_swap(a, b);
+		ft_swap(ia, ib);
+	}
 }
 
 static void	ft_init_philo_info(t_program_data *data, \
@@ -44,11 +48,16 @@ static void	ft_init_n_philo(t_program_data *data, int n, const t_timestamp *ts)
 	if (data->philo[n])
 	{
 		ft_init_philo_info(data, n, ts);
-		data->philo[n]->left_fork_mutex = data->forks[n];
+		data->philo[n]->left_fork_mutex = data->fork_mutexes[n];
+		data->philo[n]->left_fork = &data->forks[n];
 		data->philo[n]->right_fork_mutex = \
-			data->forks[(n + 1) % data->args.philo_nbr];
+			data->fork_mutexes[(n + 1) % data->args.philo_nbr];
+		data->philo[n]->right_fork = \
+			&data->forks[(n + 1) % data->args.philo_nbr];
 		ft_swap_if_necessary(&data->philo[n]->left_fork_mutex, \
-								&data->philo[n]->right_fork_mutex);
+								&data->philo[n]->right_fork_mutex, \
+								&data->philo[n]->left_fork, \
+								&data->philo[n]->right_fork);
 		data->philo[n]->done_cntdwn_mutex = data->done_cntdwn_mutex;
 		data->philo[n]->print_mutex = data->print_mutex;
 	}

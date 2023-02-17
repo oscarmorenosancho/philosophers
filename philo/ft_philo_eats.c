@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:26:30 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/16 13:48:32 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:34:41 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,30 @@
 
 void	ft_release_forks(t_philo_info *pi)
 {
+	int				ml_ret;
 	int				mu_ret;
 
 	if (pi->forks_taken == 2)
 	{
+		ml_ret = pthread_mutex_lock(pi->left_fork_mutex);
+		if (*pi->left_fork == 1)
+		{
+			*pi->left_fork = 0;
+			pi->forks_taken--;
+		}
 		mu_ret = pthread_mutex_unlock(pi->left_fork_mutex);
-		pi->forks_taken--;
+		ft_print_event(pi, "release first fork");
 	}
-	if (pi->left_fork_mutex != pi->right_fork_mutex && pi->forks_taken == 1)
+	if (pi->forks_taken == 1)
 	{
+		ml_ret = pthread_mutex_lock(pi->right_fork_mutex);
+		if (*pi->right_fork == 1)
+		{
+			*pi->right_fork = 0;
+			pi->forks_taken--;
+		}
 		mu_ret = pthread_mutex_unlock(pi->right_fork_mutex);
-		pi->forks_taken--;
+		ft_print_event(pi, "release second fork");
 	}
 }
 
@@ -58,8 +71,6 @@ void	ft_philo_eats(t_philo_info *pi)
 				ft_update_done_status(pi);
 		}
 	}
-	else
-		ft_release_forks(pi);
-	if (pi->exit_flag && *pi->exit_flag)
+	if (!ft_check_not_finish(pi))
 		ft_release_forks(pi);
 }

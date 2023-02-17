@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/16 13:52:28 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:51:22 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_philo_behavior(void *arg)
 			return (NULL);
 		else
 			pi->status = stat_dead;
-		usleep(10);
+		usleep(50);
 	}
 	ft_release_forks(pi);
 	//ft_print_event(pi, "has finished the thread");

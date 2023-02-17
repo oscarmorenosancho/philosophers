@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:05:37 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/02/16 13:49:16 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:32:39 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_philo_info
 	int				done;
 	int				*done_cntdwn;
 	int				forks_taken;
+	int				*left_fork;
+	int				*right_fork;
 	t_timestamp		eat_ts;
 	t_timestamp		ch_status_ts;
 	t_timestamp		*initial_ts;
@@ -64,7 +66,8 @@ typedef struct s_program_data
 	int				done_cntdwn;
 	t_philo_args	args;
 	pthread_t		**threads;
-	pthread_mutex_t	**forks;
+	int				*forks;
+	pthread_mutex_t	**fork_mutexes;
 	pthread_mutex_t	*done_cntdwn_mutex;
 	pthread_mutex_t	*print_mutex;
 	t_philo_info	**philo;
